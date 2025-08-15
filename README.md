@@ -115,12 +115,12 @@ pnpm prepare
 
 ### 🔸 v0.2.x — Realism and coverage
 
-* [ ] Full `address` (street, number, city, state, ZIP/CEP per locale format)
-* [ ] `phone` (valid regional formats)
-* [ ] `date` (ranges and practical utilities)
-* [ ] `commerce` (product, price, category)
-* [ ] `helpers.multiple` / `generateMany` for batch generation
-* [ ] Configurable locale fallback (e.g., `pt_BR` → `en_US`)
+* [x] Full `address` (street, number, city, state, ZIP/CEP per locale format)
+* [x] `phone` (valid regional formats)
+* [x] `date` (ranges and practical utilities)
+* [x] `commerce` (product, price, category)
+* [x] `helpers.multiple` / `generateMany` for batch generation
+* [x] Configurable locale fallback (e.g., `pt_BR` → `en_US`)
 
 ### 🔶 v0.3.x — Extensibility and DX
 
