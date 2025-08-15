@@ -12,6 +12,10 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # para criar commit/tag
+      pull-requests: write   # para abrir/atualizar PR de versão
+      id-token: write        # para npm provenance (OIDC)
 
     steps:
       - uses: actions/checkout@v4
