@@ -15,6 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Evita usar o GITHUB_TOKEN padrão para operações de push; Changesets usará o PAT
+          persist-credentials: false
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -36,7 +39,9 @@ jobs:
           version: pnpm changeset version
           publish: pnpm -s changeset publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use um PAT com permissão de PR/contents para contornar a política que bloqueia o GITHUB_TOKEN
+          # Crie um secret CHANGESETS_TOKEN com um PAT (repo: contents=rw, pull_requests=rw)
+          GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           # Desativa hooks do Husky no CI para não bloquear commits automatizados do Changesets
           HUSKY: 0
