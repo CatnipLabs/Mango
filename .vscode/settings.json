@@ -1,11 +1,11 @@
 {
-	// Ativar formatar ao salvar
+	// Enable format on save
 	"editor.formatOnSave": true,
 
-	// Desabilitar Prettier para esse projeto
+	// Disable Prettier for this project
 	"prettier.enable": false,
 
-	// Usar o Biome como formatador padrão
+	// Use Biome as the default formatter
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit",

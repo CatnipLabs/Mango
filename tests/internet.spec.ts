@@ -7,7 +7,7 @@ import { email } from "../src/generators/internet";
 const emailRegex = /^[a-z0-9]+(?:\.[a-z0-9]+)*@[a-z0-9.-]+\.[a-z]{2,}$/;
 
 describe("internet", () => {
-	it("email é determinístico com seed", () => {
+	it("email is deterministic with seed", () => {
 		const rng1 = new Random(2024);
 		const rng2 = new Random(2024);
 		const a = email(rng1, pt_BR);
@@ -15,14 +15,14 @@ describe("internet", () => {
 		expect(a).toBe(b);
 	});
 
-	it("email possui formato válido (pt_BR)", () => {
+	it("email has valid format (pt_BR)", () => {
 		const a = email(new Random(5), pt_BR);
 		expect(a).toMatch(emailRegex);
 		const domain = a.split("@")[1];
 		expect(pt_BR.internet.emailDomains).toContain(domain);
 	});
 
-	it("email possui formato válido (en_US)", () => {
+	it("email has valid format (en_US)", () => {
 		const a = email(new Random(7), en_US);
 		expect(a).toMatch(emailRegex);
 		const domain = a.split("@")[1];

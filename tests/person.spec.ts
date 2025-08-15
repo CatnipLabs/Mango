@@ -4,26 +4,26 @@ import { pt_BR } from "../src/data/locales/pt_BR";
 import { firstName, fullName, lastName } from "../src/generators/person";
 
 describe("person", () => {
-	it("gera nome determinístico com seed", () => {
+	it("generates deterministic fullName with seed", () => {
 		const a = fullName(new Random(42), pt_BR);
 		const b = fullName(new Random(42), pt_BR);
 		expect(a).toBe(b);
 	});
-	it("firstName é determinístico com seed", () => {
+	it("firstName is deterministic with seed", () => {
 		const a = firstName(new Random(1234), pt_BR);
 		const b = firstName(new Random(1234), pt_BR);
 		expect(a).toBe(b);
-		// Pertence ao conjunto de nomes do locale
+		// Belongs to the locale's firstNames set
 		expect(pt_BR.person.firstNames).toContain(a);
 	});
-	it("lastName é determinístico com seed", () => {
+	it("lastName is deterministic with seed", () => {
 		const a = lastName(new Random(5678), pt_BR);
 		const b = lastName(new Random(5678), pt_BR);
 		expect(a).toBe(b);
-		// Pertence ao conjunto de sobrenomes do locale
+		// Belongs to the locale's lastNames set
 		expect(pt_BR.person.lastNames).toContain(a);
 	});
-	it("fullName é composto por firstName e lastName válidos", () => {
+	it("fullName is composed of valid firstName and lastName", () => {
 		const rng = new Random(99);
 		const fn = firstName(rng, pt_BR);
 		const ln = lastName(rng, pt_BR);
