@@ -61,6 +61,59 @@ console.log(mango.internet.email());  // e.g., "ana.souza@exemplo.com"
 
 ---
 
+## 🌐 Browser (CDN)
+
+You can use Mango directly in the browser via jsDelivr or unpkg. Since browsers don't resolve bare specifiers by default, either import by full URL to the ESM file or set up an import map.
+
+### Option A — Direct URL (no import map)
+
+Using jsDelivr:
+
+```html
+<script type="module">
+  import { Mango, pt_BR, en_US } from "https://cdn.jsdelivr.net/npm/@catniplabs/mango@0.1.2/dist/index.mjs";
+
+  const mango = new Mango({ seed: 1337, locale: pt_BR, fallbackLocale: en_US });
+  console.log(mango.person.fullName());
+  console.log(mango.internet.email());
+  console.log(mango.address.full());
+</script>
+```
+
+Using unpkg:
+
+```html
+<script type="module">
+  import { Mango, pt_BR, en_US } from "https://unpkg.com/@catniplabs/mango@latest/dist/index.mjs";
+
+  const mango = new Mango({ seed: 2025, locale: en_US, fallbackLocale: pt_BR });
+  console.log(mango.commerce.productName());
+  console.log(mango.phone.phone());
+</script>
+```
+
+### Option B — Import map (use package name in imports)
+
+```html
+<script type="importmap">
+{
+  "imports": {
+    "@catniplabs/mango": "https://cdn.jsdelivr.net/npm/@catniplabs/mango@0.1.2/dist/index.mjs"
+  }
+}
+</script>
+<script type="module">
+  import { Mango, pt_BR } from "@catniplabs/mango";
+  const mango = new Mango({ seed: 42, locale: pt_BR });
+  document.body.innerText = mango.internet.email();
+</script>
+```
+
+Notes:
+- The CDN serves ESM with proper CORS headers, so it works in `<script type="module">`.
+- We publish ESM (`.mjs`) and CJS (`.cjs`); for browsers, prefer the ESM URL.
+- For deterministic results in the browser, use the `Mango` class’ `seed` option.
+
 ## 🧩 Scripts
 
 These scripts are available in `package.json`:
