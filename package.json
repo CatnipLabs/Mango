@@ -1,6 +1,6 @@
 {
 	"name": "@catniplabs/mango",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "🍊 Fake data generator with a juicy twist — fast, realistic, tiny, TS-first.",
 	"license": "MIT",
 	"type": "module",
@@ -10,7 +10,9 @@
 	"jsdelivr": "dist/index.mjs",
 	"unpkg": "dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"keywords": [],
+	"keywords": [
+		"mango"
+	],
 	"author": "Anderson Gonçalves",
 	"repository": {
 		"type": "git",
