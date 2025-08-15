@@ -1,4 +1,4 @@
-# quando tiver mudanças:
+# When there are changes:
 
 pnpm changeset # cria um changeset (escolha major/minor/patch)
 pnpm changeset version
