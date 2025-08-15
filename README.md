@@ -13,10 +13,10 @@
 
 ## ✨ Features
 
-- 🐾 Geração rápida de dados fake
-- 🐾 Totalmente escrito em TypeScript
-- 🐾 API simples e expressiva
-- 🐾 Extensível e personalizável
+- 🐾 Fast fake data generation
+- 🐾 Fully written in TypeScript
+- 🐾 Simple and expressive API
+- 🐾 Extensible and customizable
 
 ---
 
