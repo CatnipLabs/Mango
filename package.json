@@ -10,6 +10,10 @@
 	"types": "./dist/index.d.ts",
 	"keywords": [],
 	"author": "Anderson Gonçalves",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CatnipLabs/Mango"
+	},
 	"publishConfig": {
 		"access": "public",
 		"provenance": true,
