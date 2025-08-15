@@ -5,7 +5,11 @@ export { email } from "./generators/internet";
 
 import type { Locale } from "./types";
 import { Random } from "./core/random";
-import { fullName as _fullName } from "./generators/person";
+import {
+  fullName as _fullName,
+  firstName as _firstName,
+  lastName as _lastName,
+} from "./generators/person";
 import { email as _email } from "./generators/internet";
 import { en_US as defaultLocale } from "./data/locales/en_US";
 
@@ -24,6 +28,8 @@ export class Mango {
   }
 
   person = {
+    firstName: () => _firstName(this.rng, this.locale),
+    lastName: () => _lastName(this.rng, this.locale),
     fullName: () => _fullName(this.rng, this.locale),
   };
   internet = {

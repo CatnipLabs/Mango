@@ -1,1 +1,1 @@
-export type Locale = typeof import("./data/locales/en_US").en_US;
+export type { Locale } from "./data/locales";
