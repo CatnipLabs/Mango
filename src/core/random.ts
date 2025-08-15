@@ -74,7 +74,7 @@ export class Random {
 		}
 		const range = (max - min + Random.INCLUSIVE_RANGE_OFFSET) >>> 0; // range size as uint32
 		// Edge case: range === 0 implies range size 2^32 (32-bit overflow)
-		if (range === 0) return min; // safe choice; avoids overflow when adding 2^32
+		if (range === 0) return min + (this.nextUint32() >>> 0); // handle full 32-bit range
 
 		const limit = Random.UINT32_RANGE - (Random.UINT32_RANGE % range);
 		let sample: number;
