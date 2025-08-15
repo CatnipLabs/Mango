@@ -23,5 +23,5 @@
 ## 📦 Installation
 
 ```bash
-npm install mango
+npm install @CatnipLabs/Mango
 ```
