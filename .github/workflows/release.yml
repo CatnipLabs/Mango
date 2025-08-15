@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write        # para criar commit/tag
+  pull-requests: write   # para abrir/atualizar PR de versão
+  id-token: write        # para npm provenance (OIDC)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test
+      - run: pnpm typecheck
+
+      # Changesets cuida de:
+      # 1) abrir/atualizar PR de versão quando houver changesets pendentes
+      # 2) publicar (@catniplabs/mango) no npm quando o PR for mergeado
+      - name: Create or Update Release PR / Publish to npm
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset version
+          publish: pnpm -s changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # algumas ferramentas leem esta var
+          NPM_CONFIG_PROVENANCE: true                # garante --provenance no publish
