@@ -38,5 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Desativa hooks do Husky no CI para não bloquear commits automatizados do Changesets
+          HUSKY: 0
+          HUSKY_SKIP_HOOKS: 1
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # algumas ferramentas leem esta var
           NPM_CONFIG_PROVENANCE: true                # garante --provenance no publish
