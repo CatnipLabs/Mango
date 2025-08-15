@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+set -euo pipefail
+
+echo "Running formatter..." >&2
+pnpm -s format
+
+echo "Running linter..." >&2
+pnpm -s lint
+
+echo "Running tests..." >&2
+pnpm -s test
