@@ -1,17 +1,17 @@
 export { en_US } from "./data/locales/en_US";
 export { pt_BR } from "./data/locales/pt_BR";
-export { firstName, lastName, fullName } from "./generators/person";
 export { email } from "./generators/internet";
+export { firstName, fullName, lastName } from "./generators/person";
 
-import type { Locale } from "./types";
 import { Random } from "./core/random";
+import { en_US as defaultLocale } from "./data/locales/en_US";
+import { email as _email } from "./generators/internet";
 import {
-  fullName as _fullName,
   firstName as _firstName,
+  fullName as _fullName,
   lastName as _lastName,
 } from "./generators/person";
-import { email as _email } from "./generators/internet";
-import { en_US as defaultLocale } from "./data/locales/en_US";
+import type { Locale } from "./types";
 
 export class Mango {
   private rng: Random;

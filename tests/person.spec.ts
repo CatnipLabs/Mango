@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Random } from "../src/core/random";
 import { pt_BR } from "../src/data/locales/pt_BR";
-import { firstName, lastName, fullName } from "../src/generators/person";
+import { firstName, fullName, lastName } from "../src/generators/person";
 
 describe("person", () => {
   it("gera nome determinístico com seed", () => {

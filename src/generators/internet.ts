@@ -1,5 +1,5 @@
+import type { Random } from "../core/random";
 import type { Locale } from "../types";
-import { Random } from "../core/random";
 import { firstName, lastName } from "./person";
 
 const slug = (s: string) =>

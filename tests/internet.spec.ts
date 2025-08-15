@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Random } from "../src/core/random";
-import { pt_BR } from "../src/data/locales/pt_BR";
 import { en_US } from "../src/data/locales/en_US";
+import { pt_BR } from "../src/data/locales/pt_BR";
 import { email } from "../src/generators/internet";
 
 const emailRegex = /^[a-z0-9]+(?:\.[a-z0-9]+)*@[a-z0-9.-]+\.[a-z]{2,}$/;
