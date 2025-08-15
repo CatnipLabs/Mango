@@ -1,6 +1,24 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
   "formatter": { "enabled": true },
-  "linter": { "enabled": true },
-  "files": { "includes": ["**", "!**/dist", "!**/node_modules"] }
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "style": {
+        "useConst": "warn"
+      }
+    }
+  },
+  "files": { "includes": ["**", "!**/dist", "!**/node_modules"] },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
 }
