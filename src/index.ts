@@ -28,7 +28,22 @@ export {
 	soon as dateSoon,
 } from "./generators/date";
 export { generateMany, multiple } from "./generators/helpers";
-export { email } from "./generators/internet";
+export { nanoid, objectId, shortUUID, ulid, uuidV4 } from "./generators/ids";
+export {
+	companyEmail,
+	domain,
+	email,
+	httpMethod,
+	httpStatus,
+	ipv4,
+	ipv6,
+	mac,
+	password,
+	port,
+	safeEmail,
+	url,
+	username,
+} from "./generators/internet";
 export { firstName, fullName, lastName } from "./generators/person";
 export { phone } from "./generators/phone";
 export { definePlugin } from "./plugins/types";
@@ -63,7 +78,28 @@ import {
 	recent as _recent,
 	soon as _soon,
 } from "./generators/date";
-import { email as _email } from "./generators/internet";
+import {
+	nanoid as _nanoid,
+	objectId as _objectId,
+	shortUUID as _shortUUID,
+	ulid as _ulid,
+	uuidV4 as _uuidV4,
+} from "./generators/ids";
+import {
+	companyEmail as _companyEmail,
+	domain as _domain,
+	email as _email,
+	httpMethod as _httpMethod,
+	httpStatus as _httpStatus,
+	ipv4 as _ipv4,
+	ipv6 as _ipv6,
+	mac as _mac,
+	password as _password,
+	port as _port,
+	safeEmail as _safeEmail,
+	url as _url,
+	username as _username,
+} from "./generators/internet";
 import {
 	firstName as _firstName,
 	fullName as _fullName,
@@ -150,6 +186,47 @@ export class Mango {
 	};
 	internet = {
 		email: () => _email(this.rng, this.L()),
+		companyEmail: (opts?: {
+			domain?: string;
+			pattern?: "first.last" | "flast" | "first" | "last";
+			separator?: string;
+		}) => _companyEmail(this.rng, this.L(), opts),
+		username: (opts?: {
+			style?: "first.last" | "first_last" | "flast" | "first";
+		}) => _username(this.rng, this.L(), opts),
+		domain: (opts?: { subdomain?: boolean }) =>
+			_domain(this.rng, this.L(), opts),
+		url: (opts?: {
+			https?: boolean;
+			subdomain?: boolean;
+			pathSegments?: number;
+		}) => _url(this.rng, this.L(), opts),
+		ipv4: () => _ipv4(this.rng),
+		ipv6: () => _ipv6(this.rng),
+		mac: () => _mac(this.rng),
+		httpMethod: () => _httpMethod(this.rng),
+		httpStatus: (opts?: { group?: 2 | 3 | 4 | 5 }) =>
+			_httpStatus(this.rng, opts),
+		password: (opts?: {
+			length?: number;
+			upper?: boolean;
+			lower?: boolean;
+			digits?: boolean;
+			symbols?: boolean;
+		}) => _password(this.rng, opts),
+		port: (opts?: { min?: number; max?: number }) => _port(this.rng, opts),
+		safeEmail: (opts?: {
+			domain?: "example.com" | "example.org" | "example.net";
+		}) => _safeEmail(this.rng, opts),
+	};
+	/** ID/identifier utilities */
+	ids = {
+		uuidV4: () => _uuidV4(this.rng),
+		ulid: (opts?: { time?: number }) => _ulid(this.rng, opts),
+		nanoid: (opts?: { length?: number; alphabet?: string }) =>
+			_nanoid(this.rng, opts),
+		objectId: (opts?: { time?: number }) => _objectId(this.rng, opts),
+		shortUUID: () => _shortUUID(this.rng),
 	};
 	address = {
 		street: () => _street(this.rng, this.L()),
