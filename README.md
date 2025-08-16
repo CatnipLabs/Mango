@@ -114,6 +114,51 @@ Notes:
 - We publish ESM (`.mjs`) and CJS (`.cjs`); for browsers, prefer the ESM URL.
 - For deterministic results in the browser, use the `Mango` class’ `seed` option.
 
+---
+
+## 🔌 Plugin support
+
+Mango provides a simple, strongly typed plugin system. Define a plugin with `definePlugin`, register it via `mango.use(plugin)` or fetch its API directly with `mango.plugin(plugin)` (auto-installs if needed).
+
+### Define and use a plugin (TypeScript)
+
+```ts
+import { definePlugin, Mango, pt_BR, en_US } from "@catniplabs/mango";
+import type { Locale } from "@catniplabs/mango";
+
+// Create a plugin exposing a typed API
+const greetPlugin = definePlugin({
+  name: "greet",
+  install(ctx) {
+    return {
+      hello: () => `Hello from ${ctx.getLocale().address.states[0]?.code ?? "--"}`,
+      reseed: (seed: number) => ctx.rng.seed(seed),
+      setLocale: (locale: Locale) => ctx.setLocale(locale),
+    };
+  },
+});
+
+const mango = new Mango({ seed: 42, locale: pt_BR, fallbackLocale: en_US });
+
+// Get the plugin API with full types (auto-installs if necessary)
+const greet = mango.plugin(greetPlugin);
+console.log(greet.hello());
+
+// Alternative: register then retrieve
+mango.use(greetPlugin);
+const greetApi = mango.plugin(greetPlugin);
+greetApi.reseed(1337);
+greetApi.setLocale(en_US);
+```
+
+Useful public types:
+- `MangoPlugin<TApi>` and `PluginContext` for strongly typed plugins
+- `LocaleDefinition` to author custom locales/providers
+
+Notes:
+- `mango.plugin(plugin)` is idempotent and preserves the plugin API instance
+- `getLocale()` returns the effective locale with fallback applied
+
 ## 🧩 Scripts
 
 These scripts are available in `package.json`:
@@ -177,9 +222,8 @@ pnpm prepare
 
 ### 🔶 v0.3.x — Extensibility and DX
 
-* [ ] **Plugin** system (register third-party modules)
-* [ ] Public types for `LocaleDefinition` and custom providers
-* [ ] Optional CLI to generate example datasets (seed + amount)
+* [x] **Plugin** system (register third-party modules)
+* [x] Public types for `LocaleDefinition` and custom providers
 
 ### 🟠 v0.4.x — Quality and performance
 
