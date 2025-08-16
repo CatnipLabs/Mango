@@ -305,7 +305,8 @@ export class Mango {
 			_purchaseOrderNumber(this.rng, opts),
 		invoiceNumber: (opts?: { prefix?: string }) =>
 			_invoiceNumber(this.rng, opts),
-		transactionId: (length?: number) => _transactionId(this.rng, length),
+		transactionId: (length?: number) =>
+			_transactionId(this.rng, length !== undefined ? { length } : undefined),
 		currencyCode: () => _currencyCode(this.L()),
 	};
 }

@@ -120,8 +120,6 @@ export function invoiceNumber(rng: Random, opts?: { prefix?: string }): string {
 	return `${prefix}-${body}`;
 }
 
-export function transactionId(rng: Random, length = 16): string {
-	const hex = "0123456789abcdef";
 export function transactionId(rng: Random, opts?: { length?: number }): string {
 	const hex = "0123456789abcdef";
 	let out = "";

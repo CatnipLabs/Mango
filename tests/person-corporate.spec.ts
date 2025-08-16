@@ -18,9 +18,10 @@ import { Random } from "../src/core/random";
 import { en_US } from "../src/data/locales/en_US";
 
 const nameRegex = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
-const jobRegex =
+
 // Flexible job title regex: optional level + domain + role, each as one or more capitalized words
-const jobRegex = /^([A-Z][a-z]+(?: [A-Z][a-z]+)* )?([A-Z][a-z]+(?: [A-Z][a-z]+)*) ([A-Z][a-z]+(?: [A-Z][a-z]+)*)$/;
+const jobRegex =
+	/^([A-Z][a-z]+(?: [A-Z][a-z]+)* )?([A-Z][a-z]+(?: [A-Z][a-z]+)*) ([A-Z][a-z]+(?: [A-Z][a-z]+)*)$/;
 
 describe("person corporate", () => {
 	it("names and middle", () => {

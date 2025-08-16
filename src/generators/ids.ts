@@ -31,7 +31,7 @@ export function ulid(rng: Random, opts?: { time?: number }): string {
 		// Synthesize a 48-bit timestamp from RNG to keep determinism by default
 		const high = rng.int(0, 0xffff); // 16 bits
 		const low = rng.int(0, 0xffffffff) >>> 0; // 32 bits
-		time = (high * 0x1_0000_0000 + low) % (2 ** 48); // properly constrained to 48 bits
+		time = (high * 0x1_0000_0000 + low) % 2 ** 48; // properly constrained to 48 bits
 	}
 	// clamp to 48 bits
 	time = Math.max(0, Math.floor(time)) % 2 ** 48;
