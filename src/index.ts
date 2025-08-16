@@ -10,9 +10,17 @@ export {
 } from "./generators/address";
 export {
 	category,
+	currencyCode,
+	ean13,
+	invoiceNumber,
 	price,
 	priceWithCurrency,
 	productName,
+	purchaseOrderNumber,
+	quantity,
+	sku,
+	transactionId,
+	upc,
 } from "./generators/commerce";
 export {
 	between as dateBetween,
@@ -38,9 +46,17 @@ import {
 } from "./generators/address";
 import {
 	category as _category,
+	currencyCode as _currencyCode,
+	ean13 as _ean13,
+	invoiceNumber as _invoiceNumber,
 	price as _price,
 	priceWithCurrency as _priceWithCurrency,
 	productName as _productName,
+	purchaseOrderNumber as _purchaseOrderNumber,
+	quantity as _quantity,
+	sku as _sku,
+	transactionId as _transactionId,
+	upc as _upc,
 } from "./generators/commerce";
 import {
 	between as _between,
@@ -159,6 +175,17 @@ export class Mango {
 			max?: number;
 			decimals?: number;
 		}) => _priceWithCurrency(this.rng, this.L(), opts),
+		quantity: (opts?: { min?: number; max?: number }) =>
+			_quantity(this.rng, opts),
+		sku: (opts?: { pattern?: string }) => _sku(this.rng, opts),
+		upc: () => _upc(this.rng),
+		ean13: () => _ean13(this.rng),
+		purchaseOrderNumber: (opts?: { prefix?: string }) =>
+			_purchaseOrderNumber(this.rng, opts),
+		invoiceNumber: (opts?: { prefix?: string }) =>
+			_invoiceNumber(this.rng, opts),
+		transactionId: (length?: number) => _transactionId(this.rng, length),
+		currencyCode: () => _currencyCode(this.L()),
 	};
 }
 export const mango = new Mango();
