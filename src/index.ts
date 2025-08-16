@@ -44,7 +44,21 @@ export {
 	url,
 	username,
 } from "./generators/internet";
-export { firstName, fullName, lastName } from "./generators/person";
+export {
+	department,
+	displayName,
+	firstName,
+	formalName,
+	fullName,
+	initials,
+	jobTitle,
+	lastName,
+	middleName,
+	nameAndTitle,
+	nameWithMiddle,
+	prefix as personPrefix,
+	suffix as personSuffix,
+} from "./generators/person";
 export { phone } from "./generators/phone";
 export { definePlugin } from "./plugins/types";
 
@@ -101,9 +115,19 @@ import {
 	username as _username,
 } from "./generators/internet";
 import {
+	department as _department,
+	displayName as _displayName,
 	firstName as _firstName,
+	formalName as _formalName,
 	fullName as _fullName,
+	initials as _initials,
+	jobTitle as _jobTitle,
 	lastName as _lastName,
+	middleName as _middleName,
+	nameAndTitle as _nameAndTitle,
+	nameWithMiddle as _nameWithMiddle,
+	prefix as _personPrefix,
+	suffix as _personSuffix,
 } from "./generators/person";
 import { phone as _phone } from "./generators/phone";
 import type { MangoPlugin } from "./plugins/types";
@@ -183,6 +207,26 @@ export class Mango {
 		firstName: () => _firstName(this.rng, this.L()),
 		lastName: () => _lastName(this.rng, this.L()),
 		fullName: () => _fullName(this.rng, this.L()),
+		middleName: () => _middleName(this.rng, this.L()),
+		nameWithMiddle: (opts?: { initial?: boolean }) =>
+			_nameWithMiddle(this.rng, this.L(), opts),
+		initials: (opts?: { includeMiddle?: boolean; separator?: string }) =>
+			_initials(this.rng, this.L(), opts),
+		prefix: () => _personPrefix(this.rng, this.L()),
+		suffix: () => _personSuffix(this.rng, this.L()),
+		formalName: (opts?: { includeMiddleInitial?: boolean }) =>
+			_formalName(this.rng, this.L(), opts),
+		displayName: (opts?: {
+			style?:
+				| "firstLast"
+				| "lastFirst"
+				| "firstInitialLast"
+				| "firstLastInitial";
+		}) => _displayName(this.rng, this.L(), opts),
+		jobTitle: (opts?: { includeLevel?: boolean }) =>
+			_jobTitle(this.rng, this.L(), opts),
+		department: () => _department(this.rng, this.L()),
+		nameAndTitle: () => _nameAndTitle(this.rng, this.L()),
 	};
 	internet = {
 		email: () => _email(this.rng, this.L()),
@@ -206,7 +250,7 @@ export class Mango {
 		mac: () => _mac(this.rng),
 		httpMethod: () => _httpMethod(this.rng),
 		httpStatus: (opts?: { group?: 2 | 3 | 4 | 5 }) =>
-			_httpStatus(this.rng, opts),
+			_httpStatus(this.rng, this.L(), opts),
 		password: (opts?: {
 			length?: number;
 			upper?: boolean;

@@ -54,7 +54,7 @@ describe("internet (extra)", () => {
 	});
 	it("http method/status", () => {
 		const method = httpMethod(new Random(7));
-		const status = httpStatus(new Random(8), { group: 4 });
+		const status = httpStatus(new Random(8), en_US, { group: 4 });
 		expect([
 			"GET",
 			"POST",

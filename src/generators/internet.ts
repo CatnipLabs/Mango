@@ -9,17 +9,6 @@ const slug = (s: string) =>
 		.replace(/\p{Diacritic}/gu, "")
 		.replace(/[^a-z0-9]+/g, ".");
 
-const WORDS = [
-	"app",
-	"api",
-	"dev",
-	"stage",
-	"internal",
-	"portal",
-	"services",
-	"data",
-	"ops",
-] as const;
 const METHODS = [
 	"GET",
 	"POST",
@@ -29,22 +18,7 @@ const METHODS = [
 	"HEAD",
 	"OPTIONS",
 ] as const;
-const STATUS: ReadonlyArray<{ code: number; text: string }> = [
-	{ code: 200, text: "OK" },
-	{ code: 201, text: "Created" },
-	{ code: 204, text: "No Content" },
-	{ code: 301, text: "Moved Permanently" },
-	{ code: 302, text: "Found" },
-	{ code: 400, text: "Bad Request" },
-	{ code: 401, text: "Unauthorized" },
-	{ code: 403, text: "Forbidden" },
-	{ code: 404, text: "Not Found" },
-	{ code: 409, text: "Conflict" },
-	{ code: 429, text: "Too Many Requests" },
-	{ code: 500, text: "Internal Server Error" },
-	{ code: 502, text: "Bad Gateway" },
-	{ code: 503, text: "Service Unavailable" },
-];
+// statuses and subdomain words come from locale when available
 
 export function email(rng: Random, locale: Locale): string {
 	const fn = slug(firstName(rng, locale));
@@ -112,7 +86,18 @@ export function domain(
 			rng.int(0, locale.internet.emailDomains.length - 1)
 		];
 	if (!opts?.subdomain) return base;
-	const sd = WORDS[rng.int(0, WORDS.length - 1)];
+	const words = locale.internet.subdomains ?? [
+		"app",
+		"api",
+		"dev",
+		"stage",
+		"internal",
+		"portal",
+		"services",
+		"data",
+		"ops",
+	];
+	const sd = words[rng.int(0, words.length - 1)];
 	return `${sd}.${base}`;
 }
 
@@ -158,12 +143,32 @@ export function httpMethod(rng: Random): (typeof METHODS)[number] {
 
 export function httpStatus(
 	rng: Random,
+	locale: Locale,
 	opts?: { group?: 2 | 3 | 4 | 5 },
 ): { code: number; text: string } {
 	const group = opts?.group;
+	const statuses: ReadonlyArray<{ code: number; text: string }> = locale
+		.internet.statuses ?? [
+		{ code: 200, text: "OK" },
+		{ code: 201, text: "Created" },
+		{ code: 204, text: "No Content" },
+		{ code: 301, text: "Moved Permanently" },
+		{ code: 302, text: "Found" },
+		{ code: 400, text: "Bad Request" },
+		{ code: 401, text: "Unauthorized" },
+		{ code: 403, text: "Forbidden" },
+		{ code: 404, text: "Not Found" },
+		{ code: 409, text: "Conflict" },
+		{ code: 429, text: "Too Many Requests" },
+		{ code: 500, text: "Internal Server Error" },
+		{ code: 502, text: "Bad Gateway" },
+		{ code: 503, text: "Service Unavailable" },
+	];
 	const pool = group
-		? STATUS.filter((s) => Math.floor(s.code / 100) === group)
-		: STATUS;
+		? statuses.filter(
+				(s: { code: number }) => Math.floor(s.code / 100) === group,
+			)
+		: statuses;
 	return pool[rng.int(0, pool.length - 1)];
 }
 
