@@ -23,6 +23,7 @@ export { generateMany, multiple } from "./generators/helpers";
 export { email } from "./generators/internet";
 export { firstName, fullName, lastName } from "./generators/person";
 export { phone } from "./generators/phone";
+export { definePlugin } from "./plugins/types";
 
 import { Random } from "./core/random";
 import { resolveLocale } from "./data/locales";
@@ -53,12 +54,17 @@ import {
 	lastName as _lastName,
 } from "./generators/person";
 import { phone as _phone } from "./generators/phone";
+import type { MangoPlugin } from "./plugins/types";
 import type { Locale } from "./types";
 
 export class Mango {
 	private rng: Random;
 	private locale: Locale;
 	private fallback: Locale | undefined;
+	/** Registered plugin APIs, keyed by plugin name */
+	public readonly plugins: Record<string, unknown> = {};
+	/** Plugin APIs keyed by plugin reference for typed retrieval */
+	private readonly _pluginByRef = new Map<MangoPlugin<unknown>, unknown>();
 	constructor(opts?: {
 		seed?: number;
 		locale?: Locale;
@@ -82,6 +88,43 @@ export class Mango {
 		return this.fallback
 			? resolveLocale(this.locale, this.fallback)
 			: this.locale;
+	}
+
+	/** Register a plugin and expose its API under mango.plugins[plugin.name] */
+	use<TApi>(plugin: MangoPlugin<TApi>): this {
+		if (this.plugins[plugin.name]) return this; // idempotent
+		const api = plugin.install({
+			rng: this.rng,
+			getLocale: () => this.L(),
+			setLocale: (loc: Locale) => this.setLocale(loc),
+		});
+		this.plugins[plugin.name] = api as unknown;
+		this._pluginByRef.set(plugin, api as unknown);
+		return this;
+	}
+
+	/**
+	 * Get the typed API for a plugin. Auto-installs if not present.
+	 * Usage: const api = mango.plugin(myPlugin)
+	 */
+	plugin<TApi>(plugin: MangoPlugin<TApi>): TApi {
+		if (!this.plugins[plugin.name]) this.use(plugin);
+		const api = this._pluginByRef.get(plugin) as TApi | undefined;
+		if (api === undefined) {
+			// Fallback: install again to obtain API, then store
+			const freshlyInstalled = plugin.install({
+				rng: this.rng,
+				getLocale: () => this.L(),
+				setLocale: (loc: Locale) => this.setLocale(loc),
+			}) as unknown as TApi;
+			this.plugins[plugin.name] = freshlyInstalled as unknown;
+			this._pluginByRef.set(
+				plugin as unknown as MangoPlugin<unknown>,
+				freshlyInstalled as unknown,
+			);
+			return freshlyInstalled;
+		}
+		return api;
 	}
 
 	person = {
