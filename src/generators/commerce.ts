@@ -122,7 +122,10 @@ export function invoiceNumber(rng: Random, opts?: { prefix?: string }): string {
 
 export function transactionId(rng: Random, length = 16): string {
 	const hex = "0123456789abcdef";
+export function transactionId(rng: Random, opts?: { length?: number }): string {
+	const hex = "0123456789abcdef";
 	let out = "";
+	const length = opts?.length ?? 16;
 	for (let i = 0; i < Math.max(1, length); i++) out += hex[rng.int(0, 15)];
 	return out;
 }
