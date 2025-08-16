@@ -28,7 +28,21 @@ export {
 	soon as dateSoon,
 } from "./generators/date";
 export { generateMany, multiple } from "./generators/helpers";
-export { nanoid, objectId, shortUUID, ulid, uuidV4 } from "./generators/ids";
+export {
+	bigInteger,
+	bigSerial,
+	cuid,
+	identity,
+	integer,
+	nanoid,
+	objectId,
+	serial,
+	shortUUID,
+	smallInt,
+	smallSerial,
+	ulid,
+	uuidV4,
+} from "./generators/ids";
 export {
 	companyEmail,
 	domain,
@@ -93,9 +107,17 @@ import {
 	soon as _soon,
 } from "./generators/date";
 import {
+	bigInteger as _bigInteger,
+	bigSerial as _bigSerial,
+	cuid as _cuid,
+	identity as _identity,
+	integer as _integer,
 	nanoid as _nanoid,
 	objectId as _objectId,
+	serial as _serial,
 	shortUUID as _shortUUID,
+	smallInt as _smallInt,
+	smallSerial as _smallSerial,
 	ulid as _ulid,
 	uuidV4 as _uuidV4,
 } from "./generators/ids";
@@ -271,6 +293,20 @@ export class Mango {
 			_nanoid(this.rng, opts),
 		objectId: (opts?: { time?: number }) => _objectId(this.rng, opts),
 		shortUUID: () => _shortUUID(this.rng),
+		smallInt: (opts?: { signed?: boolean; min?: number; max?: number }) =>
+			_smallInt(this.rng, opts),
+		integer: (opts?: { signed?: boolean; min?: number; max?: number }) =>
+			_integer(this.rng, opts),
+		bigInteger: (opts?: { min?: bigint | number; max?: bigint | number }) =>
+			_bigInteger(this.rng, opts),
+		smallSerial: () => _smallSerial(this.rng),
+		serial: () => _serial(this.rng),
+		bigSerial: () => _bigSerial(this.rng),
+		identity: (opts?: {
+			mode?: "ALWAYS" | "BY DEFAULT";
+			type?: "smallint" | "integer" | "bigint";
+		}) => _identity(this.rng, opts),
+		cuid: (opts?: { length?: number }) => _cuid(this.rng, opts),
 	};
 	address = {
 		street: () => _street(this.rng, this.L()),
