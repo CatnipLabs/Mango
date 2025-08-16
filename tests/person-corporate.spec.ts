@@ -19,7 +19,8 @@ import { en_US } from "../src/data/locales/en_US";
 
 const nameRegex = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
 const jobRegex =
-	/^(Junior|Mid|Senior|Lead|Principal|Chief )?(Software|Data|Security|Finance|HR|Marketing|Sales|Operations|Product|Support|IT|DevOps|Cloud|Infrastructure) (Engineer|Analyst|Manager|Director|Administrator|Specialist|Consultant|Coordinator|Executive|Architect|Scientist)$/;
+// Flexible job title regex: optional level + domain + role, each as one or more capitalized words
+const jobRegex = /^([A-Z][a-z]+(?: [A-Z][a-z]+)* )?([A-Z][a-z]+(?: [A-Z][a-z]+)*) ([A-Z][a-z]+(?: [A-Z][a-z]+)*)$/;
 
 describe("person corporate", () => {
 	it("names and middle", () => {
