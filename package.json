@@ -1,6 +1,6 @@
 {
 	"name": "@catniplabs/mango",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"description": "🍊 Fake data generator with a juicy twist — fast, realistic, tiny, TS-first.",
 	"license": "MIT",
 	"type": "module",

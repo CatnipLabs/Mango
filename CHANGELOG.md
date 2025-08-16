@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+### Minor Changes
+
+- 38c52d3: Feature: New generator package.
+
 ## 0.4.1
 
 ### Patch Changes
