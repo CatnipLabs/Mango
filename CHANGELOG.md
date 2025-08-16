@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1
+
+### Patch Changes
+
+- e3f15dc: Better Readme docs.
+
 ## 0.4.0
 
 ### Minor Changes
