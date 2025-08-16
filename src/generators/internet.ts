@@ -193,7 +193,7 @@ export function password(
 	const L = lower ? "abcdefghijklmnopqrstuvwxyz" : "";
 	const D = digits ? "0123456789" : "";
 	const S = symbols ? "!@#$%^&*()-_=+[]{};:,.?/" : "";
-	const pool = U + L + D + S || "abcdefghijklmnopqrstuvwxyz";
+	const pool = (U + L + D + S) || "abcdefghijklmnopqrstuvwxyz";
 	let out = "";
 	for (let i = 0; i < length; i++) out += pool[rng.int(0, pool.length - 1)];
 	return out;
