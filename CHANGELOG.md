@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- 8d49511: Plugin Suppot.
+
 ## 0.3.0
 
 ### Minor Changes
