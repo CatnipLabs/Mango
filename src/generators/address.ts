@@ -42,11 +42,11 @@ export function zip(rng: Random, locale: Locale): string {
 }
 
 export function fullAddress(rng: Random, locale: Locale): string {
-	const s = street(rng, locale);
-	const n = streetNumber(rng, locale);
-	const c = city(rng, locale);
-	const st = state(rng, locale);
-	const z = zip(rng, locale);
+	const streetName = street(rng, locale);
+	const houseNumber = streetNumber(rng, locale);
+	const cityName = city(rng, locale);
+	const stateInfo = state(rng, locale);
+	const postalCode = zip(rng, locale);
 	// Format: "123 Maple St, Springfield, CA 90210"
-	return `${n} ${s}, ${c}, ${st.code} ${z}`;
+	return `${houseNumber} ${streetName}, ${cityName}, ${stateInfo.code} ${postalCode}`;
 }

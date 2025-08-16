@@ -2,9 +2,17 @@ export type Locale = {
 	readonly person: {
 		readonly firstNames: readonly string[];
 		readonly lastNames: readonly string[];
+		readonly prefixes?: readonly string[];
+		readonly suffixes?: readonly string[];
+		readonly jobLevels?: readonly string[];
+		readonly jobRoles?: readonly string[];
+		readonly jobDomains?: readonly string[];
+		readonly departments?: readonly string[];
 	};
 	readonly internet: {
 		readonly emailDomains: readonly string[];
+		readonly subdomains?: readonly string[];
+		readonly statuses?: ReadonlyArray<{ code: number; text: string }>;
 	};
 	readonly address: {
 		readonly streetPrefixes?: readonly string[]; // e.g., ["Rua", "Avenida"]
@@ -32,8 +40,22 @@ export function resolveLocale(locale: Locale, fallback?: Locale): Locale {
 	if (!fallback) return locale;
 	// Shallow merge sections; arrays are used as-is if present, otherwise fall back.
 	return {
-		person: locale.person ?? fallback.person,
-		internet: locale.internet ?? fallback.internet,
+		person: {
+			firstNames: locale.person.firstNames ?? fallback.person.firstNames,
+			lastNames: locale.person.lastNames ?? fallback.person.lastNames,
+			prefixes: locale.person.prefixes ?? fallback.person.prefixes,
+			suffixes: locale.person.suffixes ?? fallback.person.suffixes,
+			jobLevels: locale.person.jobLevels ?? fallback.person.jobLevels,
+			jobRoles: locale.person.jobRoles ?? fallback.person.jobRoles,
+			jobDomains: locale.person.jobDomains ?? fallback.person.jobDomains,
+			departments: locale.person.departments ?? fallback.person.departments,
+		},
+		internet: {
+			emailDomains:
+				locale.internet.emailDomains ?? fallback.internet.emailDomains,
+			subdomains: locale.internet.subdomains ?? fallback.internet.subdomains,
+			statuses: locale.internet.statuses ?? fallback.internet.statuses,
+		},
 		address: {
 			streetPrefixes:
 				locale.address.streetPrefixes ?? fallback.address.streetPrefixes,
