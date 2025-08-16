@@ -11,13 +11,19 @@
 	"unpkg": "dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"keywords": [
-		"mango"
+		"mango",
+		"fake",
+		"data",
+		"generator",
+		"typescript",
+		"catniplabs"
 	],
 	"author": "Anderson Gonçalves",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/CatnipLabs/Mango"
 	},
+	"homepage": "https://www.npmjs.com/package/@catniplabs/mango",
 	"publishConfig": {
 		"access": "public",
 		"provenance": true,
