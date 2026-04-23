@@ -46,6 +46,7 @@
 		"node": ">=18"
 	},
 	"scripts": {
+		"audit": "pnpm audit --prod",
 		"dev": "tsup --watch",
 		"build": "tsup",
 		"typecheck": "tsc -p tsconfig.json --noEmit",
@@ -55,7 +56,7 @@
 		"lint:fix": "biome lint --write",
 		"format": "biome format --write .",
 		"changeset": "changeset",
-		"prepublishOnly": "pnpm build && pnpm test && pnpm typecheck",
+		"prepublishOnly": "pnpm audit --prod && pnpm build && pnpm test && pnpm typecheck",
 		"prepare": "husky"
 	},
 	"packageManager": "pnpm@10.14.0",
